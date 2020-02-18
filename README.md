@@ -176,7 +176,7 @@ set -ex;
 ### WPをインストールしたパス： .env で設定したパスと合わせる
 WP_INSTALL_DIR=/var/www/html/wp
 ### サイトURL： .env で設定したポート、サブディレクトリと合わせる
-WP_URL=localhost:8080/wp
+WP_URL=localhost:8100/wp
 ### インストールするプラグイン： 同時に有効化する時は 1 、 インストールのみなら 0（1以外）
 declare -A PLUGINS;
 PLUGINS=(
@@ -190,7 +190,7 @@ PLUGINS=(
 # wp core download \
 #   --locale=ja \
 #   --version=4.9.1 \
-#   --path=${WP_INSTALL_DIR}  \
+#   --path=${WP_INSTALL_DIR} \
 #   --force \
 #   --allow-root
 
@@ -207,9 +207,9 @@ wp core install \
 ###### プラグインのインストール #####
 for plugin in ${!PLUGINS[@]}; do
   if [ 1 -eq ${PLUGINS[$plugin]} ]; then
-    wp plugin install $plugin --activate --path=${WP_INSTALL_DIR}  --allow-root
+    wp plugin install $plugin --activate --path=${WP_INSTALL_DIR} --allow-root
   else
-    wp plugin install $plugin --path=${WP_INSTALL_DIR}  --allow-root
+    wp plugin install $plugin --path=${WP_INSTALL_DIR} --allow-root
   fi
 done
 ```
@@ -236,9 +236,9 @@ done
       "name": "Listen for XDebug",
       "type": "php",
       "request": "launch",
-      "port": 9000,
+      "port": 9000, // php.ini の xdebug.remote_port に合わせる
       "pathMappings": {
-        "/var/www/html": "${workspaceFolder}"
+        "/var/www/html": "${workspaceFolder}" // wordpressコンテナのドキュメントルート = プロジェクトフォルダ、の場合
       }
     },
     // （以下省略）
