@@ -82,7 +82,3 @@ services:
   #   restart: always
   #   environment:
   #     PMA_HOST: wpdb
-
-
-# volumes:
-#   db_data: {}
