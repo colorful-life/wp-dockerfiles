@@ -228,7 +228,7 @@ done
 - [WP-CLI Commands](https://developer.wordpress.org/cli/commands/)
 ---
 ## VS Code with PHP Debug - .vscode/launch.json
-```json
+```jsonc
 {
   "version": "0.2.0",
   "configurations": [
