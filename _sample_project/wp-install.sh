@@ -42,7 +42,7 @@ wp core install \
 
 
 ###### 検索エンジンがサイトをインデックスしないようにする
-wp option update blog_public 0 --allow-root
+wp option update blog_public 0 --path=${WP_INSTALL_DIR} --allow-root
 
 
 ###### プラグインのインストール #####
