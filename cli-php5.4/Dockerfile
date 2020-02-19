@@ -26,8 +26,9 @@ RUN apt-get update \
     pdo_mysql \
     zip \
   && a2enmod rewrite \
+  && pecl install zendopcache-7.0.5 \
   && pecl install imagick-3.4.4 \
-  && docker-php-ext-enable imagick \
+  && docker-php-ext-enable opcache imagick \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
@@ -45,5 +46,15 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
   && chmod +x wp-cli.phar \
   && mv wp-cli.phar /usr/local/bin/wp \
   && wp --info
+
+# set recommended PHP.ini settings (https://secure.php.net/manual/en/opcache.installation.php)
+RUN { \
+		echo 'opcache.memory_consumption=128'; \
+		echo 'opcache.interned_strings_buffer=8'; \
+		echo 'opcache.max_accelerated_files=4000'; \
+		echo 'opcache.revalidate_freq=2'; \
+		echo 'opcache.fast_shutdown=1'; \
+	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
+
 
 WORKDIR /var/www
