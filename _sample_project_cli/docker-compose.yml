@@ -1,0 +1,72 @@
+version: '3.4'
+
+services:
+
+  # MySQL
+  # =======================================
+  wpdb:
+    image: mysql:5.7
+    # Workbench等で接続出来る様にポート割り当て： Standard(TCP/IP)にて、127.0.0.1:{割り当てたポート} で接続可
+    ports:
+      - "${PORT_MYSQL:-3307}:3306"
+    restart: always
+    volumes:
+      - ./db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-wordpressroot}
+      MYSQL_DATABASE: ${DB_NAME:-wordpress}
+      MYSQL_USER: ${DB_USER:-wordpress}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-wordpress}
+
+
+  # WordPress
+  # =======================================
+  wordpress:
+    depends_on:
+      - wpdb
+    ### tags => https://hub.docker.com/r/colife/wordpress/tags?name=cli
+    image: colife/wordpress:cli-php5.4
+    ports:
+      - "${PORT_WP:-8080}:80"
+    restart: always
+    volumes:
+      - ./html:/var/www/html
+      - ./wp-install.sh:/tmp/wp-install.sh
+      - ./php.ini:/usr/local/etc/php/conf.d/zzz-php.ini
+      - ./.tmp/log:/tmp/log
+
+
+  # MailCatcher
+  # ======================================
+  # wordpressから mailcatcherを使用するには・・・
+  #   - phpに mailcatcherをインストールし、php.iniの sendmailのパスにcatchmailを設定する
+  #       * php.ini に反映済み
+  #       * 要 WP Multibyte Patch。 素のwp_mail()だと、送信の際にmailcatcherで文字コードの関係でエラーになる感じ
+  #      OR
+  #   - WP Mail SMTP by WPForms プラグインをインストールする
+  #       --- WP Mail SMTP の設定 ---
+  #       * Mailer : Other SMTP
+  #       * SMTP Host : mailcatcher (下記サービス名)
+  #       * SMTP Port : 1025        (下記 ports で割り当てたポート)
+  #       * Auto TLS : OFF
+  #       * Authentication : OFF
+  #       --- /WP Mail SMTP の設定 ---
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "${PORT_MC_UI:-1080}:1080"
+      - "${PORT_MC_SMTP:-1025}:1025"
+
+
+  # phpMyAdmin
+  # =======================================
+  # phpMyAdminを使用するなら、以下アンコメント
+  # pma:
+  #   depends_on:
+  #     - wpdb
+  #   image: phpmyadmin/phpmyadmin
+  #   ports:
+  #     - "8081:80"
+  #   restart: always
+  #   environment:
+  #     PMA_HOST: wpdb
