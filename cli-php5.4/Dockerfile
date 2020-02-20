@@ -7,8 +7,8 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ghostscript \
     libfreetype6-dev \
-    libmagickwand-dev \
     libjpeg-dev \
+    libmagickwand-dev \
     libpng-dev \
     libsqlite3-dev \
     libzip-dev \
@@ -51,12 +51,12 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 # set recommended PHP.ini settings (https://secure.php.net/manual/en/opcache.installation.php)
 RUN { \
-		echo 'opcache.memory_consumption=128'; \
-		echo 'opcache.interned_strings_buffer=8'; \
-		echo 'opcache.max_accelerated_files=4000'; \
-		echo 'opcache.revalidate_freq=2'; \
-		echo 'opcache.fast_shutdown=1'; \
-	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
+    echo 'opcache.memory_consumption=128'; \
+    echo 'opcache.interned_strings_buffer=8'; \
+    echo 'opcache.max_accelerated_files=4000'; \
+    echo 'opcache.revalidate_freq=2'; \
+    echo 'opcache.fast_shutdown=1'; \
+  } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 
 WORKDIR /var/www
