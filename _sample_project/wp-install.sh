@@ -12,12 +12,17 @@ WP_URL=localhost:8101/wp
 ### インストールするプラグイン： 同時に有効化する時は 1 、 インストールのみなら 0（1以外）
 declare -A PLUGINS;
 PLUGINS=(
-  # ["duplicate-post"]=0
   # ["advanced-custom-fields"]=0
   ["classic-editor"]=0
+  # ["duplicate-post"]=0
+  ["query-monitor"]=0
+  ["show-current-template"]=0
   # ["tinymce-advanced"]=0
+  # ["transients-manager"]=0
+  # ["wp-crontrol"]=0
   ["wp-multibyte-patch"]=1
 )
+
 
 
 ###### WPのダウンロード（必要ならアンコメント） #####
