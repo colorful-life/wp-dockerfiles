@@ -19,6 +19,7 @@ RUN apt-get update \
     rubygems \
   && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
   && docker-php-ext-install \
+    bcmath \
     exif \
     gd \
     mbstring \
@@ -46,6 +47,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
   && chmod +x wp-cli.phar \
   && mv wp-cli.phar /usr/local/bin/wp \
   && wp --info
+
 
 # set recommended PHP.ini settings (https://secure.php.net/manual/en/opcache.installation.php)
 RUN { \
