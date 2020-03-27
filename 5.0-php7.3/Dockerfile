@@ -2,7 +2,7 @@
 FROM wordpress:5.0-php7.3-apache
 
 # Xdebug
-RUN pecl install xdebug-2.9.2 \
+RUN pecl install xdebug-2.9.4 \
   && docker-php-ext-enable xdebug
 
 # MailCatcher
