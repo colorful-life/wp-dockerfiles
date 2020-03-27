@@ -3,6 +3,7 @@
 FROM php:5.5-apache
 
 # install PHP extensions (https://make.wordpress.org/hosting/handbook/handbook/server-environment/#php-extensions)
+ENV RUBYOPT -EUTF-8
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ghostscript \

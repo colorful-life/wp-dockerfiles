@@ -6,6 +6,7 @@ RUN pecl install xdebug \
   && docker-php-ext-enable xdebug
 
 # MailCatcher
+ENV RUBYOPT -EUTF-8
 RUN apt-get update -qq \
   && apt-get install -y \
     ruby \
