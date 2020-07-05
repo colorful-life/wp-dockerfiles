@@ -7,7 +7,7 @@ WordPress開発環境用イメージ
 Wordpress Dokerfiles FROM [WordPress Official Image](https://hub.docker.com/_/wordpress/)
 
 - [Docker Hub](https://hub.docker.com/r/colife/wordpress)
-- [GutHub](https://github.com/colorful-life/wp-dockerfiles)
+- [GitHub](https://github.com/colorful-life/wp-dockerfiles)
 
 ---
 ## docker-compose.yml
@@ -235,7 +235,7 @@ done
    ```
 - [WP-CLI Commands](https://developer.wordpress.org/cli/commands/)
 ---
-## VS Code with PHP Debug - .vscode/launch.json
+## VS Code with PHP Debug : `.vscode/launch.json`
 ```jsonc
 {
   "version": "0.2.0",
