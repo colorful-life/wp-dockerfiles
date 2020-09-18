@@ -13,6 +13,8 @@ RUN apt-get update -qq \
     ruby-dev \
     rubygems \
     libsqlite3-dev \
+    libpq-dev \
+  && docker-php-ext-install pdo_mysql \
   && apt-get autoremove \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
