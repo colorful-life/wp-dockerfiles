@@ -1,6 +1,9 @@
 
 FROM wordpress:php7.4-apache
 
+RUN usermod -u 1000 www-data \
+    && groupmod -g 1000 www-data
+
 # Xdebug
 RUN pecl install xdebug-2.9.8 \
   && docker-php-ext-enable xdebug
